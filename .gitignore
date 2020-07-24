@@ -1,0 +1,11 @@
+node_modules
+dist
+*/node_modules
+.idea/
+test.js
+logs/**
+*.sh
+.env.development
+src/routes.ts
+test.js
+package-lock.json

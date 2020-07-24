@@ -1,0 +1,36 @@
+{
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": [
+    "src/**/*Controller.ts"
+  ],
+  "spec": {
+    "outputDirectory": "dist",
+    "specVersion": 3
+  },
+  "swagger": {
+    "outputDirectory": "./dist",
+    "entryFile": "./src/index.ts",
+    "host": "http://localhost:3003",
+    "version": "1.0",
+    "name": "tsoa app",
+    "description": "a description",
+    "license": "MIT",
+    "basePath": "/v1",
+    "noImplicitAdditionalProperties": "silently-remove-extras",
+    "securityDefinitions": {
+      "token": {
+        "type": "apiKey",
+        "name": "token",
+        "in": "header"
+      }
+    }
+  },
+  "routes": {
+    "basePath": "/v1",
+    "entryFile": "./src/index.ts",
+    "routesDir": "./src",
+    "middleware": "express",
+    "authenticationModule": "./src/libs/security.ts"
+  }
+}
