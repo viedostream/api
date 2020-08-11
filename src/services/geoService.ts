@@ -12,7 +12,7 @@ export class GeoService {
     peerId: string,
     latitude: number,
     longitude: number
-  ): Promise<void> {
+  ): Promise<{ status: string }> {
     return this.dataSource.updateGeo(userId, peerId, latitude, longitude);
   }
 

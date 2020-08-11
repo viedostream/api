@@ -29,7 +29,7 @@ export class GeoController extends Controller {
     @BodyProp("latitude") latitude: number,
     @BodyProp("longitude") longitude: number,
     @Request() request: RequestData
-  ): Promise<void> {
+  ): Promise<{ status: string }> {
     return this.geoService.update(
       request.user.userId,
       peerId,

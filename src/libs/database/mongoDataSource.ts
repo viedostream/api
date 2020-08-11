@@ -131,7 +131,7 @@ export class MongoDataSource {
     peerId: string,
     latitude: number,
     longitude: number
-  ): Promise<void> {
+  ): Promise<{ status: string }> {
     this.geoCollection.updateOne(
       { user_id: userId },
       {
@@ -144,7 +144,7 @@ export class MongoDataSource {
       { upsert: true }
     );
 
-    return;
+    return { status: "ok" };
   }
 
   public async findAround(
