@@ -20,6 +20,7 @@ export class UserService {
 
   public async login(emailOrUsername: string, password: string): Promise<IUserLoginResponse> {
     const userId: string = await this.dataSource.getUserLogin(emailOrUsername, password);
+    await this.stateManager.removeAll(userId);
     const token: string = await this.stateManager.create(userId);
 
     return { token };

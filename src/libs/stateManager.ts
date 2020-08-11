@@ -24,6 +24,10 @@ export class StateManager {
     });
   }
 
+  public async removeAll(userId: string): Promise<void> {
+    await this.sessionCollection.deleteMany({ user_id: userId });
+  }
+
   public async create(userId: string): Promise<string> {
     const token: string = Crypto.randomBytes(32).toString("hex");
     const result: InsertOneWriteOpResult<IMongoSession> = await this.sessionCollection.insertOne(

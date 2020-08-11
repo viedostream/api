@@ -91,20 +91,22 @@ export class MongoDataSource {
     password: string
   ): Promise<string> {
     const userId: string = crypto.randomBytes(32).toString("hex");
-    const insertedRecord: InsertOneWriteOpResult<{
-      _id: string;
-    }> = await this.userCollection.insertOne({
-      _id: userId,
-      email: email,
-      username: username,
-      password: password,
-      created_at: new Date(),
-    });
-    if (insertedRecord.insertedId) {
-      return userId;
+    try {
+      const insertedRecord: InsertOneWriteOpResult<{ _id: string }> = await this.userCollection.insertOne({
+        _id: userId,
+        email: email,
+        username: username,
+        password: password,
+        created_at: new Date(),
+      });
+      if (insertedRecord.insertedId) {
+        return userId;
+      }
+      throw new CustomError(ErrorTypes.UNHANDLED_ERROR);
+    } catch (err) {
+      this.logger.error(err);
+      throw new CustomError(ErrorTypes.UNHANDLED_ERROR);
     }
-
-    throw new CustomError(ErrorTypes.UNHANDLED_ERROR);
   }
 
   public async getUserLogin(
