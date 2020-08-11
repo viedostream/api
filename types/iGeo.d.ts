@@ -11,5 +11,5 @@ export interface IMongoGeo {
 export interface IGeo {
   id: string;
   peerId: string;
-  localtion: number[];
+  location: number[];
 }

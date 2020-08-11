@@ -171,7 +171,7 @@ export class MongoDataSource {
       (p: IMongoGeo): IGeo => ({
         id: p._id.toHexString(),
         peerId: p.peer_id,
-        localtion: p.location,
+        location: p.location,
       })
     );
   }
