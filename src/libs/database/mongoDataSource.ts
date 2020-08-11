@@ -160,7 +160,7 @@ export class MongoDataSource {
               type: "Point",
               coordinates: [latitude, longitude],
             },
-            $maxDistance: 1000,
+            $maxDistance: this.env.environments.APP_MAX_DISTANCE,
             $minDistance: 0,
           },
         },

@@ -12,4 +12,6 @@ export interface IEnvironment {
   ZIXO_TOKEN: string;
 
   NETWORK: string;
+
+  APP_MAX_DISTANCE: number;
 }

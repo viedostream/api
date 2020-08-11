@@ -18,6 +18,8 @@ export class ENV {
       ZIXO_TOKEN: this.Setter("ZIXO_TOKEN", "string"),
 
       NETWORK: this.Setter("NETWORK", "string"),
+
+      APP_MAX_DISTANCE: parseInt(this.Setter("APP_MAX_DISTANCE", "number"), 10),
     };
 
   }
