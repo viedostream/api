@@ -18,7 +18,7 @@ app.use(methodOverride.default());
 app.use((req: Express.Request, res: any, next: NextFunction) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
+  res.header("Access-Control-Allow-Headers", "*");
   next();
 });
 app.use((req: Express.Request, res: any, next: NextFunction) => {
