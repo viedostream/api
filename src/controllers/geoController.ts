@@ -32,6 +32,7 @@ export class GeoController extends Controller {
   ): Promise<{ status: string }> {
     return this.geoService.update(
       request.user.userId,
+      request.user.userName,
       peerId,
       latitude,
       longitude

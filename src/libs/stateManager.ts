@@ -28,12 +28,13 @@ export class StateManager {
     await this.sessionCollection.deleteMany({ user_id: userId });
   }
 
-  public async create(userId: string): Promise<string> {
+  public async create(userId: string, userName: string): Promise<string> {
     const token: string = Crypto.randomBytes(32).toString("hex");
     const result: InsertOneWriteOpResult<IMongoSession> = await this.sessionCollection.insertOne(
       {
         _id: token,
         user_id: userId,
+        user_name: userName,
         createdAt: new Date(),
         last_modified: new Date()
 
@@ -53,7 +54,7 @@ export class StateManager {
 
     }
 
-    return { token: token, userId: result.user_id };
+    return { token: token, userId: result.user_id, userName: result.user_name };
 
   }
 

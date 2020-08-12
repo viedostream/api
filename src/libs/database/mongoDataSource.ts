@@ -4,7 +4,7 @@ import { Inject, Singleton } from "typescript-ioc";
 import { ENV } from "../environment";
 import { CustomError, ErrorTypes } from "../customError";
 import crypto from "crypto";
-import { IMongoUser } from "../../../types/iUser";
+import { IMongoUser, IUser } from "../../../types/iUser";
 import { IMongoGeo, IGeo } from "../../../types/iGeo";
 import { Logger } from "../logger";
 import { series } from "async";
@@ -112,7 +112,7 @@ export class MongoDataSource {
   public async getUserLogin(
     emailOrUsername: string,
     password: string
-  ): Promise<string> {
+  ): Promise<IUser> {
     const findUser: IMongoUser = await this.userCollection.findOne({
       $and: [
         { $or: [{ username: emailOrUsername }, { email: emailOrUsername }] },
@@ -120,7 +120,7 @@ export class MongoDataSource {
       ],
     });
     if (findUser) {
-      return findUser._id;
+      return { userId: findUser._id, userName: findUser.username };
     }
 
     throw new CustomError(ErrorTypes.UNHANDLED_ERROR);
@@ -128,6 +128,7 @@ export class MongoDataSource {
 
   public async updateGeo(
     userId: string,
+    userName: string,
     peerId: string,
     latitude: number,
     longitude: number
@@ -137,6 +138,7 @@ export class MongoDataSource {
       {
         $set: {
           peer_id: peerId,
+          user_name: userName,
           location: [latitude, longitude],
           created_at: new Date(),
         },
@@ -170,6 +172,7 @@ export class MongoDataSource {
     return points.map(
       (p: IMongoGeo): IGeo => ({
         id: p._id.toHexString(),
+        userName: p.user_name,
         peerId: p.peer_id,
         location: p.location,
       })

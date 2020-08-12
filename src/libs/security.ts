@@ -17,7 +17,7 @@ export function expressAuthentication(request: express.Request, securityName: st
 
             return undefined;
           }
-          resolve({ userId: session.userId, ip: request.ip });
+          resolve({ userId: session.userId, userName: session.userName, ip: request.ip });
         })
         .catch((err: Error) => {
           logger.error(err);

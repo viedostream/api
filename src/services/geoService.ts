@@ -9,11 +9,12 @@ export class GeoService {
 
   public async update(
     userId: string,
+    userName: string,
     peerId: string,
     latitude: number,
     longitude: number
   ): Promise<{ status: string }> {
-    return this.dataSource.updateGeo(userId, peerId, latitude, longitude);
+    return this.dataSource.updateGeo(userId, userName, peerId, latitude, longitude);
   }
 
   public async findAround(
