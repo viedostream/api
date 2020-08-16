@@ -13,7 +13,7 @@ import { Singleton, Inject } from "typescript-ioc";
 
 import { GeoService } from "../services/geoService";
 import { RequestData } from "../../types/iSession";
-import { IGeo } from "../../types/iGeo";
+import { IGeo, ILocation } from "../../types/iGeo";
 
 @Route("/geo")
 @Singleton
@@ -26,16 +26,14 @@ export class GeoController extends Controller {
   @Security("token")
   public update(
     @BodyProp("peerId") peerId: string,
-    @BodyProp("latitude") latitude: number,
-    @BodyProp("longitude") longitude: number,
+    @BodyProp("location") location: ILocation,
     @Request() request: RequestData
   ): Promise<{ status: string }> {
     return this.geoService.update(
       request.user.userId,
       request.user.userName,
       peerId,
-      latitude,
-      longitude
+      location
     );
   }
 
@@ -43,10 +41,12 @@ export class GeoController extends Controller {
   @Tags("queryMethod")
   @Security("token")
   public around(
-    @Query("latitude") latitude: number,
-    @Query("longitude") longitude: number,
+    @Query("lng") lng: number,
+    @Query("lat") lat: number,
     @Request() request: RequestData
   ): Promise<IGeo[]> {
-    return this.geoService.findAround(request.user.userId, latitude, longitude);
+    return this.geoService.findAround(request.user.userId, {
+      lat, lng
+    });
   }
 }

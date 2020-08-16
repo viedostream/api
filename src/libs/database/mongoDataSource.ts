@@ -5,7 +5,7 @@ import { ENV } from "../environment";
 import { CustomError, ErrorTypes } from "../customError";
 import crypto from "crypto";
 import { IMongoUser, IUser } from "../../../types/iUser";
-import { IMongoGeo, IGeo } from "../../../types/iGeo";
+import { IMongoGeo, IGeo, ILocation } from "../../../types/iGeo";
 import { Logger } from "../logger";
 import { series } from "async";
 
@@ -130,8 +130,7 @@ export class MongoDataSource {
     userId: string,
     userName: string,
     peerId: string,
-    latitude: number,
-    longitude: number
+    location: ILocation
   ): Promise<{ status: string }> {
     this.geoCollection.updateOne(
       { user_id: userId },
@@ -139,7 +138,7 @@ export class MongoDataSource {
         $set: {
           peer_id: peerId,
           user_name: userName,
-          location: [latitude, longitude],
+          location: [location.lng, location.lat],
           created_at: new Date(),
         },
       },
@@ -151,8 +150,7 @@ export class MongoDataSource {
 
   public async findAround(
     userId: string,
-    latitude: number,
-    longitude: number
+    location: ILocation
   ): Promise<IGeo[]> {
     const points: IMongoGeo[] = await this.geoCollection
       .find({
@@ -160,7 +158,7 @@ export class MongoDataSource {
           $near: {
             $geometry: {
               type: "Point",
-              coordinates: [latitude, longitude],
+              coordinates: [location.lng, location.lat],
             },
             $maxDistance: this.env.environments.APP_MAX_DISTANCE,
             $minDistance: 0,
@@ -174,7 +172,10 @@ export class MongoDataSource {
         id: p._id.toHexString(),
         userName: p.user_name,
         peerId: p.peer_id,
-        location: p.location,
+        location: {
+          lat: p.location[1],
+          lng: p.location[0]
+        },
       })
     );
   }

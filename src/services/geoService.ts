@@ -1,6 +1,6 @@
 import { Inject, Singleton } from "typescript-ioc";
 import { MongoDataSource } from "../libs/database/mongoDataSource";
-import { IGeo } from "../../types/iGeo";
+import { IGeo, ILocation } from "../../types/iGeo";
 
 @Singleton
 export class GeoService {
@@ -11,17 +11,15 @@ export class GeoService {
     userId: string,
     userName: string,
     peerId: string,
-    latitude: number,
-    longitude: number
+    location: ILocation
   ): Promise<{ status: string }> {
-    return this.dataSource.updateGeo(userId, userName, peerId, latitude, longitude);
+    return this.dataSource.updateGeo(userId, userName, peerId, location);
   }
 
   public async findAround(
     userId: string,
-    latitude: number,
-    longitude: number
+    location: ILocation
   ): Promise<IGeo[]> {
-    return this.dataSource.findAround(userId, latitude, longitude);
+    return this.dataSource.findAround(userId, location);
   }
 }

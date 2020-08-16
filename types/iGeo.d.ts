@@ -8,10 +8,14 @@ export interface IMongoGeo {
   location: number[];
   created_at: Date;
 }
+export interface ILocation {
+  lat: number;
+  lng: number;
+}
 
 export interface IGeo {
   id: string;
   userName: string;
   peerId: string;
-  location: number[];
+  location: ILocation;
 }
