@@ -13,6 +13,8 @@ export class UserService {
   private readonly stateManager: StateManager;
 
   public async create(email: string, username: string, password: string): Promise<IUserLoginResponse> {
+    username = username.toLowerCase();
+    email = email.toLowerCase();
     const userId: string = await this.dataSource.createUser(email, username, password);
     const token: string = await this.stateManager.create(userId, username);
 
@@ -20,6 +22,7 @@ export class UserService {
   }
 
   public async login(emailOrUsername: string, password: string): Promise<IUserLoginResponse> {
+    emailOrUsername = emailOrUsername.toLowerCase();
     const user: IUser = await this.dataSource.getUserLogin(emailOrUsername, password);
     await this.stateManager.removeAll(user.userId);
     const token: string = await this.stateManager.create(user.userId, user.userName);
