@@ -154,16 +154,24 @@ export class MongoDataSource {
   ): Promise<IGeo[]> {
     const points: IMongoGeo[] = await this.geoCollection
       .find({
-        location: {
-          $near: {
-            $geometry: {
-              type: "Point",
-              coordinates: [location.lng, location.lat],
+        $and: [
+          {
+            created_at: {
+              $gte: new Date(new Date().getTime() - this.env.environments.APP_EXPIRRE_GEO_AFTER_SECONDS * 1000)
+            }
+          }
+          , {
+            location: {
+              $near: {
+                $geometry: {
+                  type: "Point",
+                  coordinates: [location.lng, location.lat],
+                },
+                $maxDistance: this.env.environments.APP_MAX_DISTANCE,
+                $minDistance: 0,
+              },
             },
-            $maxDistance: this.env.environments.APP_MAX_DISTANCE,
-            $minDistance: 0,
-          },
-        },
+          }]
       })
       .toArray();
 

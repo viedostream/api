@@ -14,7 +14,8 @@ export class ENV {
       DATABASE_MONGODB_SESSION_HOST: this.Setter("DATABASE_MONGODB_SESSION_HOST", "string"),
       DATABASE_MONGODB_VIEDO_HOST: this.Setter("DATABASE_MONGODB_VIEDO_HOST", "string"),
 
-      APP_MAX_DISTANCE: parseInt(this.Setter("APP_MAX_DISTANCE", "number"), 10),
+      APP_EXPIRRE_GEO_AFTER_SECONDS: parseInt(this.Setter("APP_EXPIRRE_GEO_AFTER_SECONDS", "number"), 10),
+      APP_MAX_DISTANCE: parseInt(this.Setter("APP_MAX_DISTANCE", "number"), 10)
     };
 
   }
