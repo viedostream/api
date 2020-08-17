@@ -16,7 +16,6 @@
     "name": "tsoa app",
     "description": "a description",
     "license": "MIT",
-    "basePath": "/v1",
     "noImplicitAdditionalProperties": "silently-remove-extras",
     "securityDefinitions": {
       "token": {
@@ -27,7 +26,6 @@
     }
   },
   "routes": {
-    "basePath": "/v1",
     "entryFile": "./src/index.ts",
     "routesDir": "./src",
     "middleware": "express",
