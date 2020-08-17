@@ -9,22 +9,16 @@ import { RegisterRoutes } from "./routes";
 import { NextFunction } from "express-serve-static-core";
 import { IHttpException } from "../types/iError";
 import { DependencyResolver } from "./dependencyResolver";
+import cors from "cors";
 const app: express.Express = express();
 const env: ENV = new ENV();
 Sentry.init({ dsn: env.environments.SENTRY_DSN });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(methodOverride.default());
-app.use((req: Express.Request, res: any, next: NextFunction) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "*");
-  next();
-});
-app.use((req: Express.Request, res: any, next: NextFunction) => {
-  next();
-});
-
+if (env.environments.NODE_ENV === "develop") {
+  app.use(cors());
+}
 RegisterRoutes(app);
 //TODO Development mode
 app.use((err: IHttpException, req: Express.Request, res: any, next: NextFunction) => {
