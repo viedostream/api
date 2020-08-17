@@ -14,11 +14,6 @@ export class ENV {
       DATABASE_MONGODB_SESSION_HOST: this.Setter("DATABASE_MONGODB_SESSION_HOST", "string"),
       DATABASE_MONGODB_VIEDO_HOST: this.Setter("DATABASE_MONGODB_VIEDO_HOST", "string"),
 
-      ZIXO_WALLET_ADDRESS: this.Setter("ZIXO_WALLET_ADDRESS", "string"),
-      ZIXO_TOKEN: this.Setter("ZIXO_TOKEN", "string"),
-
-      NETWORK: this.Setter("NETWORK", "string"),
-
       APP_MAX_DISTANCE: parseInt(this.Setter("APP_MAX_DISTANCE", "number"), 10),
     };
 

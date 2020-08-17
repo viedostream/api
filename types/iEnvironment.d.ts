@@ -8,10 +8,5 @@ export interface IEnvironment {
   DATABASE_MONGODB_SESSION_HOST: string;
   DATABASE_MONGODB_VIEDO_HOST: string;
 
-  ZIXO_WALLET_ADDRESS: string;
-  ZIXO_TOKEN: string;
-
-  NETWORK: string;
-
   APP_MAX_DISTANCE: number;
 }
