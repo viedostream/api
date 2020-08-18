@@ -1,0 +1,33 @@
+version: "2"
+services:
+  peerjs:
+    image: peerjs/peerjs-server:latest
+    ports:
+    - 9000:9000
+    command: --port 9000 --path /peerjs --proxied true
+  api:
+    build: .
+    ports:
+    - 80:80
+    links:
+    - mongo
+    environment:
+      APP_EXPIRRE_GEO_AFTER_SECONDS: 60
+      NODE_ENV: develop
+      SENTRY_DSN:
+      LOG_LEVEL: info
+      EXPRESS_PORT: 80
+      EXPRESS_HOST: 0.0.0.0
+
+      DATABASE_MONGODB_SESSION_HOST: "mongodb://mongo:27017/viedo"
+      DATABASE_MONGODB_VIEDO_HOST: "mongodb://mongo:27017/viedo"
+
+      NETWORK: test
+      APP_MAX_DISTANCE: 100000000
+
+  mongo:
+    image: mongo:4.2.6
+#Use volumes for persistence storage
+    #volumes:
+    #- /storage/volumes/mongo:/data/db
+
