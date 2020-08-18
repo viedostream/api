@@ -58,3 +58,12 @@ Get the list of active users around the location.
     [{id:'xxxxxxxxxxxxxxxxx', userName: 'username', peerId: 'aaaaaaa-bbbbb-cccc', location: {lat:xx.xx, lng:'xx.xx'}}
     ]
 </blockquote>
+
+# Running with Docker
+
+`docker-compose up -d`
+
+If you want to customize options you can edit docker-compose.yaml file.  
+You need to set up a reverse proxy with a valid SSL certificate and a domain to reverse https requests to viedo api with port 80 and peerjs with port 9000.
+
+
