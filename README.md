@@ -11,42 +11,50 @@ Available api methods with route, query, path or body
 ## User api
 #### Create user 
 Create a user with email, username and password.
+<blockquote>
 
-POST `/user/create`
-Body `{email, username, password}`
-Response `{token:'xxxxxxxxxxxxxxxxxxxxxx}`
+    POST /user/create
+    Body {email, username, password}
+    Response `{token:'xxxxxxxxxxxxxxxxxxxxxx'}
+</blockquote>
 
-#### Login the user 
-Login the user with email or username and password.
+#### Login 
+Login with email or username and password.
+<blockquote>
 
-POST `/user/login`
-Body `{emailOrUsername, password}`
-Response `{token:'xxxxxxxxxxxxxxxxxxxxxx}`
+    POST /user/login
+    Body {emailOrUsername, password}
+    Response {token:'xxxxxxxxxxxxxxxxxxxxxx'}
+</blockquote>
 
-#### Logout the user 
-Logout the user with email or username and password.
+#### Logout 
+Logout with email or username and password.
+<blockquote>
 
-POST `/user/logout`
-Headers `{token:'xxxxxxxxxxxxxxxxxxxxxx'}`
-Response `true`
-
+    POST /user/logout
+    Headers {token:'xxxxxxxxxxxxxxxxxxxxxx'}
+    Response true
+</blockquote>
 
 
 ## Geolocation api
 #### Update location 
-Update latest user geo location
+Update latest user geo location.
+<blockquote>
 
-POST `/geo/update`
-Headers `{token:'xxxxxxxxxxxxxxxxxxxxxx'}`
-Body `{peerId, location}`
-Response `{status:'ok'}`
+    POST `/geo/update`
+    Headers `{token:'xxxxxxxxxxxxxxxxxxxxxx'}`
+    Body `{peerId, location}`
+    Response `{status:'ok'}`
+</blockquote>
 
 #### Active users around the place 
-Get the user around the place that has active camera
+Get the list of active users around the location.
+<blockquote>
 
-GET `/geo/around?lng=xx.xx,lat=xx.xx`
-Headers `{token:'xxxxxxxxxxxxxxxxxxxxxx'}`
-Response 
-`[{id:'xxxxxxxxxxxxxxxxx', userName: 'username', peerId: 'aaaaaaa-bbbbb-cccc', location: {lat:xx.xx, lng:'xx.xx'}}
-]`
-
+    GET /geo/around?lng=xx.xx,lat=xx.xx
+    Headers {token:'xxxxxxxxxxxxxxxxxxxxxx'}
+    Response 
+    [{id:'xxxxxxxxxxxxxxxxx', userName: 'username', peerId: 'aaaaaaa-bbbbb-cccc', location: {lat:xx.xx, lng:'xx.xx'}}
+    ]
+</blockquote>
